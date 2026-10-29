@@ -74,7 +74,7 @@ The endpoint supports an optional group parameter:
 
 GET /api/students?group=IT2-2308
 
-The group comparison is case-insensitive.
+The group comparison is case-insensitive (main release).
 
 When no group is provided, the API returns all students.
 
