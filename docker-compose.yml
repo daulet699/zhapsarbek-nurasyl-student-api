@@ -1,0 +1,45 @@
+name: zhapsarbek-nurasyl-student-api
+
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: zhapsarbek-nurasyl-db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:?Set POSTGRES_DB in .env}
+      POSTGRES_USER: ${POSTGRES_USER:?Set POSTGRES_USER in .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes:
+      - student_postgres_data:/var/lib/postgresql/data
+    networks:
+      - student_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  app:
+    build: .
+    image: zhapsarbek-nurasyl-student-api:v1.0-zhapsarbek-nurasyl-37841
+    container_name: zhapsarbek-nurasyl-api
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:8096:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      STUDENT_NAME: Nurasyl Zhapsarbek
+      STUDENT_GROUP: IT2-2308
+      STUDENT_ID: "37841"
+    networks:
+      - student_net
+
+volumes:
+  student_postgres_data:
+
+networks:
+  student_net:
+    driver: bridge

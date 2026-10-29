@@ -1,0 +1,26 @@
+.gradle/
+build/
+.idea/
+*.iml
+.DS_Store
+.env
+*.log
+logs/
+backups/
+*.bak
+*.tmp
+
+# Local configuration and secrets
+.env
+
+# Logs and backups
+*.log
+logs/
+backups/
+
+# Gradle build files
+.gradle/
+build/
+
+# macOS files
+.DS_Store
