@@ -80,3 +80,8 @@ This feature is included in the main release and documentation.
 When no group is provided, the API returns all students.
 
 An automated integration test verifies the filtering behavior.
+
+## Jenkins CI/CD Automation
+Jenkins automatically checks the main branch for changes.
+The pipeline compiles the Java application, runs tests, builds
+a Docker image, and verifies the build result.
