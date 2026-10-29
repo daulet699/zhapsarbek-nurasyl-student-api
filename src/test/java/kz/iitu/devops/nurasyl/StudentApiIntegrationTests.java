@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -85,6 +86,21 @@ class StudentApiIntegrationTests {
                 {"fullName":"","email":"bad","groupName":"","studentNumber":""}
                 """))
             .andExpect(status().isBadRequest());
+    }
+
+
+    @Test
+    void filterStudentsByGroupReturnsCorrectResults() throws Exception {
+        createStudent();
+
+        mvc.perform(get("/api/students").param("group", "it2-2308"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$", hasSize(1)))
+            .andExpect(jsonPath("$[0].studentNumber").value("37841"));
+
+        mvc.perform(get("/api/students").param("group", "IT2-9999"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$", hasSize(0)));
     }
 
     @Test void infoIdentifiesStudent() throws Exception {
