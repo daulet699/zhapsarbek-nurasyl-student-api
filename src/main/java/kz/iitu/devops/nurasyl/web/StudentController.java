@@ -31,8 +31,10 @@ public class StudentController {
     }
 
     @GetMapping
-    public List<Student> findAll() {
-        return service.findAll();
+    public List<Student> findAll(
+            @org.springframework.web.bind.annotation.RequestParam(required = false)
+            String group) {
+        return service.findAll(group);
     }
 
     @GetMapping("/{id}")
