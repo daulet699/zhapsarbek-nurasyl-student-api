@@ -20,8 +20,11 @@ public class StudentService {
         return repository.save(input);
     }
 
-    public List<Student> findAll() {
-        return repository.findAll();
+    public List<Student> findAll(String group) {
+        if (group == null || group.isBlank()) {
+            return repository.findAll();
+        }
+        return repository.findByGroupNameIgnoreCase(group.trim());
     }
 
     public Student findById(Long id) {

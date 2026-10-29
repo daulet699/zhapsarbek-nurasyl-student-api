@@ -65,3 +65,17 @@ Job name: `Zhapsarbek_Nurasyl_Student_API`; Definition: Pipeline script from SCM
 ## Individual work
 
 For Git feature branches, deliberate README merge conflict, version tag, controlled failing CI test, and final evidence, see `docs/WORKFLOW_RU.md`.
+
+## Student Group Filtering — Nurasyl Zhapsarbek
+
+This feature improves the READ operation of the Student CRUD API.
+
+The endpoint supports an optional group parameter:
+
+GET /api/students?group=IT2-2308
+
+The group comparison is case-insensitive.
+
+When no group is provided, the API returns all students.
+
+An automated integration test verifies the filtering behavior.
